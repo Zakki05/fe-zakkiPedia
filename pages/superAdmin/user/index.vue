@@ -48,7 +48,7 @@ console.log(users)
 
 const modal = reactive({});
 
-const { data: roles, refresh: refreshRole } = await useFetch('http://be-trust.test/api/v1/role', {
+const { data: roles } = await useFetch('http://be-trust.test/api/v1/role', {
     headers: header,
 })
 
