@@ -348,7 +348,7 @@ const links = [{
                                         </h1>
                                         <div>
                                             <button type="button" @click="modalDelete(pemesananDetail.id)"
-                                                v-if="!!pemesanan?.pembayaran_id"
+                                                v-if="pemesanan?.pembayaran_id === null"
                                                 class="font-medium text-red-600 pt-2 pb-3 hover:underline">
                                                 <UIcon name="i-heroicons-trash-solid" class="mt-1 w-4 h-4" />
                                             </button>
@@ -397,12 +397,12 @@ const links = [{
 
                         <!-- Button Aksi -->
                         <div class="flex justify-between pt-4">
-                            <button @click="showCreateModal = true" v-if="!!pemesanan?.pembayaran_id"
+                            <button @click="showCreateModal = true" v-if="pemesanan?.pembayaran_id === null"
                                 class="text-white flex justify-center items-center bg-[#c8a876] hover:bg-[#b89b6c] focus:ring-4 focus:outline-none focus:ring-[#c8a876] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <UIcon name="i-heroicons-currency-dollar-16-solid" class="mr-2 mt-0.5 w-4 h-4" />
                                 Buat Pembayaran
                             </button>
-                            <button type="submit" @click="submitData(pemesanan.id)"
+                            <button type="submit" @click="submitData(pemesanan.id)" v-else
                                 class="text-white flex justify-center items-center bg-[#c8a876] hover:bg-[#b89b6c] focus:ring-4 focus:outline-none focus:ring-[#c8a876] font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                 <UIcon name="i-heroicons-check-circle-16-solid" class="mr-2 mt-0.5 w-4 h-4" />
                                 Simpan Data Pesanan

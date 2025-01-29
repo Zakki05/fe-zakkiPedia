@@ -12,7 +12,9 @@ export default {
     extend: {
       colors: {
         primary: {
-          600: '#000000', // Warna hitam untuk elemen fokus
+          DEFAULT: '#c8a876', // Warna emas/krem
+          50: '#f9f5ee',      // Warna background
+          100: '#f3ece2',
         },
       },
     },
