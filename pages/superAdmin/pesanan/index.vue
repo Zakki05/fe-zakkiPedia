@@ -110,13 +110,9 @@ const links = [{
     to: '/superAdmin',
     icon: 'i-heroicons-chart-pie-solid'
 }, {
-    label: 'Pesanan',
-    to: '/superAdmin/pesanan',
-    icon: 'i-heroicons-shopping-bag-solid'
-}, {
     label: 'Buat Pesanan',
     to: '/superAdmin/pesanan',
-    icon: 'i-heroicons-plus-circle-solid'
+    icon: 'i-heroicons-shopping-bag-solid'
 }]
 
 </script>

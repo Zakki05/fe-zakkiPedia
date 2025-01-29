@@ -175,10 +175,21 @@ const submitData = async (id) => {
         });
 
         toast.add({ title: 'Success Simpan Data Pesanan' });
-        await navigateTo('/superAdmin/pesanan/dikirim')
+        await navigateTo(`/superAdmin/pesanan/detailPesanan-${route.params.id}`)
     } catch (error) {
         console.log(error.response);
     }
+};
+
+const formatRupiah = (value) => {
+    if (typeof value !== 'number') {
+        value = parseFloat(value);
+    }
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+    }).format(value).replace('Rp', '');
 };
 
 const links = [{
@@ -186,13 +197,9 @@ const links = [{
     to: '/superAdmin',
     icon: 'i-heroicons-chart-pie-solid'
 }, {
-    label: 'Pesanan',
-    to: '/superAdmin/pesanan',
-    icon: 'i-heroicons-shopping-bag-solid'
-}, {
     label: 'Buat Pesanan',
     to: '/superAdmin/pesanan',
-    icon: 'i-heroicons-plus-circle-solid'
+    icon: 'i-heroicons-shopping-bag-solid'
 }]
 
 </script>
@@ -226,6 +233,8 @@ const links = [{
                             <p class="text-xs pt-1 font-normal text-gray-700">Kode Pos: </p>
                             <p class="text-xs pt-1 font-normal text-gray-700">Total Pembayaran: </p>
                             <p class="text-xs pt-1 font-normal text-gray-700">Pembayaran: </p>
+                            <p class="text-xs pt-1 font-normal text-gray-700">Metode Pembayaran: </p>
+                            <p class="text-xs pt-1 font-normal text-gray-700">Status Pembayaran: </p>
                             <p class="text-xs pt-1 font-normal text-gray-700">Status: </p>
                         </div>
                         <div class="flex flex-col justify-between items-end">
@@ -235,14 +244,14 @@ const links = [{
                                 pemesanan.kelurahan }},
                                 {{ pemesanan.kecamatan }}, {{ pemesanan.ongkir.kota }}</p>
                             <p class="text-xs pt-1 text-right font-normal text-gray-700">{{ pemesanan.kode_pos }}</p>
-                            <p class="text-xs pt-1 text-right font-normal text-gray-700">Rp. {{ pemesanan.subtotal }}
-                            </p>
-                            <p class="text-xs pt-1 text-right font-normal text-gray-700">{{ pemesanan.pembayaran ?
-                                pemesanan.pembayaran.kode_pembayaran : 'Belum Bayar' }}</p>
+                            <p class="text-xs pt-1 text-right font-normal text-gray-700">Rp. {{ formatRupiah(pemesanan.subtotal) }} </p>
+                            <p class="text-xs pt-1 text-right font-normal text-gray-700">{{ pemesanan.pembayaran ? pemesanan.pembayaran.kode_pembayaran : 'Belum Bayar' }}</p>
+                            <p class="text-xs pt-1 text-right font-normal text-gray-700">{{ pemesanan.pembayaran ? pemesanan.pembayaran.metode_pembayaran : 'Belum Bayar' }}</p>
+                            <p class="text-xs pt-1 text-right font-normal text-gray-700">{{ pemesanan.pembayaran ? pemesanan.pembayaran.status : 'Belum Bayar' }}</p>
                             <p :class="{
                                 'border-blue-500 text-blue-800 bg-blue-200': pemesanan.status == 'Dipesan',
-                                'text-yellow-800 border-yellow-500 bg-yellow-200': pemesanan.status == 'Dikirim',
-                                'text-green-500 border-green-800 bg-green-200': pemesanan.status == 'Selesai',
+                                'border-yellow-500 text-yellow-800 bg-yellow-200': pemesanan.status == 'Dikirim',
+                                'border-green-500 text-green-800 bg-green-200': pemesanan.status == 'Selesai'
                             }"
                                 class="text-xs text-center border bg-opacity-40 px-2 w-fit mt-1 rounded-xl font-semibold ">
                                 {{ pemesanan.status }}
@@ -329,16 +338,17 @@ const links = [{
                                             {{ pemesananDetail.produk_detail.produk.nama_produk }}
                                         </p>
                                         <p class="text-xs font-normal pt-1 text-gray-700">
-                                            Rp. {{ pemesananDetail.harga_produk }}
+                                            Rp. {{ formatRupiah(pemesananDetail.harga_produk) || '-' }} 
                                         </p>
                                         <p class="text-xs font-normal pt-1 text-gray-700">
                                             {{ pemesananDetail.jumlah }}
                                         </p>
                                         <h1 class="text-sm font-semibold pt-1 text-gray-900">
-                                            Rp. {{ pemesananDetail.total_harga }}
+                                            Rp. {{ formatRupiah(pemesananDetail.total_harga) || '-' }} 
                                         </h1>
                                         <div>
-                                            <button type="button" @click="modalDelete(pemesananDetail.id)" v-if="!!pemesanan?.pembayaran_id"
+                                            <button type="button" @click="modalDelete(pemesananDetail.id)"
+                                                v-if="!!pemesanan?.pembayaran_id"
                                                 class="font-medium text-red-600 pt-2 pb-3 hover:underline">
                                                 <UIcon name="i-heroicons-trash-solid" class="mt-1 w-4 h-4" />
                                             </button>
@@ -499,7 +509,8 @@ const links = [{
                         </div>
                         <div v-if="pemesanan" class="flex flex-col justify-between items-end">
                             <h1 class="text-sm font-semibold  text-gray-900">
-                                Rp. {{ pemesanan.total_pemesanan || '-' }}</h1>
+                                Rp. {{ formatRupiah(pemesanan.total_pemesanan) || '-' }} 
+                            </h1>
                         </div>
                         <div class="flex flex-col">
                             <h1 class="text-sm font-semibold text-gray-900">
@@ -513,7 +524,8 @@ const links = [{
                         </div>
                         <div v-if="pemesanan" class="flex flex-col justify-between items-end">
                             <h1 class="text-sm font-semibold  text-gray-900">
-                                Rp. {{ pemesanan.biaya || '-' }}</h1>
+                                Rp. {{ formatRupiah(pemesanan.biaya) || '-' }} 
+                            </h1>
                         </div>
                         <div class="col-span-3">
                             <hr class="border-gray-300 my-2">
@@ -529,7 +541,8 @@ const links = [{
                         </div>
                         <div v-if="pemesanan" class="flex flex-col justify-between items-end">
                             <h1 class="text-sm font-semibold  text-gray-900">
-                                Rp. {{ pemesanan.subtotal || '-' }}</h1>
+                                Rp. {{ formatRupiah(pemesanan.subtotal) || '-' }} 
+                            </h1>
                         </div>
                     </div>
                 </div>
