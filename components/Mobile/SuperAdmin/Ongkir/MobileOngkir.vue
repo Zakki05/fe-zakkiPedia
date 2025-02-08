@@ -13,7 +13,7 @@
         <!-- Biaya -->
         <div class="mb-4">
             <p class="text-[#4a453e] font-bold">Biaya:</p>
-            <p class="text-[#4a453e]">Rp. {{ ongkir.biaya }}</p>
+            <p class="text-[#4a453e]">Rp. {{ formatRupiah(ongkir.biaya) }}</p>
         </div>
         <div class="flex justify-end space-x-2 mt-3">
             <button type="button" @click="showModalMobile(ongkir.id)"
@@ -72,7 +72,7 @@
                                 <label class="w-2/5 text-sm font-medium text-gray-900">Biaya</label>
                                 <span class="text-sm font-medium text-gray-900">:</span>
                                 <span class="text-sm font-medium text-gray-900 flex-1 break-words whitespace-normal">
-                                    {{ ongkir.biaya || '-' }}
+                                    Rp. {{ formatRupiah(ongkir.biaya) }}
                                 </span>
                             </div>
                         </div>
@@ -313,5 +313,16 @@ const removeData = async (id) => {
 onMounted(() => {
   fetchOngkirs();
 });
+
+const formatRupiah = (value) => {
+    if (typeof value !== 'number') {
+        value = parseFloat(value);
+    }
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+    }).format(value).replace('Rp', '');
+};
 
 </script>

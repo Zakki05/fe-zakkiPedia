@@ -141,7 +141,7 @@ const login = async () => {
             <!-- Image Section -->
             <div class="flex-1 bg-indigo-100 text-center hidden lg:flex mt-28" style="height: 50vh;">
                 <div class="w-full h-full bg-center bg-cover bg-no-repeat"
-                    style="background-image: url('https://i.imgur.com/p8dW6PJ.png');">
+                    style="background-image: url('https://raw.githubusercontent.com/Zakki05/assets-image/refs/heads/main/undraw_shopping-app_b80f%20(1).png');">
                 </div>
             </div>
 

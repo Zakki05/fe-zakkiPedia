@@ -143,6 +143,17 @@ onMounted(() => {
   fetchOngkirs();
 });
 
+const formatRupiah = (value) => {
+    if (typeof value !== 'number') {
+        value = parseFloat(value);
+    }
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+    }).format(value).replace('Rp', '');
+};
+
 </script>
 
 <template>
@@ -206,7 +217,7 @@ onMounted(() => {
                     {{ ongkir.kota }}
                 </td>
                 <td class="px-6 py-4 break-words text-[#4a453e]">
-                    Rp. {{ ongkir.biaya }}
+                    Rp. {{ formatRupiah(ongkir.biaya) }}
                 </td>
                 <td class="px-6 py-4 items-center space-x-3">
                     <button type="button" @click="showModal(ongkir.id)"
@@ -272,7 +283,7 @@ onMounted(() => {
                                                 <label class="w-1/3 text-sm font-medium text-gray-900 text-left">Biaya</label>
                                                 <span class="text-sm font-medium text-gray-900">:</span>
                                                 <span class="text-sm text-gray-700 flex-1 break-words whitespace-normal">
-                                                    Rp. {{ ongkir.biaya || '-' }}
+                                                    Rp. {{ formatRupiah(ongkir.biaya) }}
                                                 </span>
                                             </div>
                                         </div>
@@ -287,7 +298,7 @@ onMounted(() => {
                 <td>
                     <div :id="`modalEdit-${ongkir.id}`" tabindex="-1" aria-hidden="true"
                         class="hidden bg-black bg-opacity-20 overflow-y-auto overflow-x-hidden flex fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0">
-                        <div class="relative p-4 w-full max-w-md max-h-screen">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
                             <!-- Modal content -->
                             <div class="relative bg-white rounded-lg shadow">
                                 <!-- Modal header -->

@@ -24,6 +24,11 @@
                 class="hidden lg:block text-black h-4 w-4 ml-auto"/>
             </button>
             <div v-if="isDropdownOpenPesanan" class="lg:ml-8">
+                <NuxtLink to="/admin/pesanan" class="mb-2 group flex items-center justify-center lg:justify-start p-2 lg:px-4 lg:py-2 text-sm font-medium hover:border-[#c8a876] hover:bg-[#e8e8e5] hover:text-black border-l-4"
+                :class="{ active: isActive('/admin/pesanan') }">
+                    <UIcon name="i-heroicons-plus-circle" class="text-black group-hover:text-black h-5 w-5" />
+                    <span class="hidden lg:block truncate text-black ml-3">Buat Pesanan</span>
+                </NuxtLink>
                 <NuxtLink to="/admin/pesanan/dipesan" class="mb-2 group flex items-center justify-center lg:justify-start p-2 lg:px-4 lg:py-2 text-sm font-medium hover:border-[#c8a876] hover:bg-[#e8e8e5] hover:text-black border-l-4"
                 :class="{ active: isActive('/admin/pesanan/dipesan') }">
                     <UIcon name="i-heroicons-shopping-cart" class="text-black group-hover:text-black h-5 w-5" />
@@ -31,12 +36,12 @@
                 </NuxtLink>
                 <NuxtLink to="/admin/pesanan/dikirim" class="mb-2 group flex items-center justify-center lg:justify-start p-2 lg:px-4 lg:py-2 text-sm font-medium hover:border-[#c8a876] hover:bg-[#e8e8e5] hover:text-black border-l-4"
                 :class="{ active: isActive('/admin/pesanan/dikirim') }">
-                    <UIcon name="i-heroicons-check-badge" class="text-black group-hover:text-black h-5 w-5" />
+                    <UIcon name="i-heroicons-truck" class="text-black group-hover:text-black h-5 w-5" />
                     <span class="hidden lg:block truncate text-black ml-3">Dikirim</span>
                 </NuxtLink>
                 <NuxtLink to="/admin/pesanan/selesai" class="mb-2 group flex items-center justify-center lg:justify-start p-2 lg:px-4 lg:py-2 text-sm font-medium hover:border-[#c8a876] hover:bg-[#e8e8e5] hover:text-black border-l-4"
                 :class="{ active: isActive('/admin/pesanan/selesai') }">
-                    <UIcon name="i-heroicons-calendar" class="text-black group-hover:text-black h-5 w-5" />
+                    <UIcon name="i-heroicons-check-badge" class="text-black group-hover:text-black h-5 w-5" />
                     <span class="hidden lg:block truncate text-black ml-3">Selesai</span>
                 </NuxtLink>
             </div>

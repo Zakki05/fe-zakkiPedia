@@ -1,12 +1,12 @@
 <script setup>
 
 useSeoMeta({
-    title: 'Dashboard Super Admin',
-    description: 'This is Super Admin page',
+    title: 'Homepage Admin',
+    description: 'This is Admin page',
 })
 
 definePageMeta({
-    layout: "dashboard",
+    layout: "admin",
     middleware: 'auth'
 });
 
@@ -175,7 +175,7 @@ const submitData = async (id) => {
         });
 
         toast.add({ title: 'Success Simpan Data Pesanan' });
-        await navigateTo(`/superAdmin/pesanan/detailPesanan-${route.params.id}`)
+        await navigateTo(`/admin/pesanan/detailPesanan-${route.params.id}`)
     } catch (error) {
         console.log(error.response);
     }
@@ -193,14 +193,16 @@ const formatRupiah = (value) => {
 };
 
 const links = [{
-    label: 'Dashboard',
-    to: '/superAdmin',
-    icon: 'i-heroicons-chart-pie-solid'
+    label: 'Homepage',
+    to: '/admin',
+    icon: 'i-heroicons-home-solid'
 }, {
     label: 'Buat Pesanan',
-    to: '/superAdmin/pesanan',
+    to: '/admin/pesanan',
     icon: 'i-heroicons-shopping-bag-solid'
 }]
+
+console.log("pembayaran_id:", pemesanan?.pembayaran_id);
 
 </script>
 
@@ -348,7 +350,7 @@ const links = [{
                                         </h1>
                                         <div>
                                             <button type="button" @click="modalDelete(pemesananDetail.id)"
-                                                v-if="!pemesanan.pembayaran"
+                                                v-if="pemesanan?.pembayaran_id === null"
                                                 class="font-medium text-red-600 pt-2 pb-3 hover:underline">
                                                 <UIcon name="i-heroicons-trash-solid" class="mt-1 w-4 h-4" />
                                             </button>
@@ -475,7 +477,7 @@ const links = [{
                                                 class="text-white inline-flex items-center bg-[#c8a876] hover:bg-opacity-90 focus:ring-4 focus:outline-none focus:ring-[#c8a876]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                                                 <UIcon name="i-heroicons-plus-circle-16-solid"
                                                     class="mr-2 mt-0.5 w-4 h-4" />
-                                                Buat Pembayarans Baru
+                                                Buat Pembayaran Baru
                                             </button>
                                         </div>
                                     </form>

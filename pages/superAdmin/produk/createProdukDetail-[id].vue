@@ -163,6 +163,17 @@ const links = [{
     icon: 'i-heroicons-cube-solid'
 }]
 
+const formatRupiah = (value) => {
+    if (typeof value !== 'number') {
+        value = parseFloat(value);
+    }
+    return new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        minimumFractionDigits: 0,
+    }).format(value).replace('Rp', '');
+};
+
 </script>
 
 <template>
@@ -296,7 +307,7 @@ const links = [{
                                     <td class="border px-4 py-2">{{ index + 1 }}</td>
                                     <td class="border px-4 py-2">{{ produkDetail.ukuran }}</td>
                                     <td class="border px-2 py-2">{{ produkDetail.stok }}</td>
-                                    <td class="border px-3 py-2">Rp. {{ produkDetail.harga }}</td>
+                                    <td class="border px-3 py-2">Rp. {{ formatRupiah(produkDetail.harga) }}</td>
                                     <td class="border px-4 py-2 text-center">
                                         <div class="space-x-2">
                                             <button type="button" @click="editModal(produkDetail.id)"

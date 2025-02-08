@@ -15,7 +15,7 @@ definePageMeta({
 <template>
     <div class="divide-y divide-gray-200">
         <div>
-            <h2 class="text-lg font-medium leading-6 text-gray-900">Home Pelanggan</h2>
+            <h2 class="text-lg font-medium leading-6 text-gray-900">Pesanan Dipesan Pelanggan</h2>
             <p class="mt-1 text-sm text-gray-500">
                 This information will be displayed publicly so be careful what you share.
             </p>
